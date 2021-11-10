@@ -1,6 +1,11 @@
+import vikingos.*
+import ejemplo_doble_composicion.*
 
-test "testX" {
 
-	assert.that(true)
+
+test "odin el granjero" {
+	odin.subir(invasionATroya)
+	
+	assert.equals(false)
 
 }
