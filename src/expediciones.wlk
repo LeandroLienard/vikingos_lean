@@ -2,13 +2,13 @@ import vikingos.*
 
 
 class Expedicion{
-	var areasInvolucradas = #{} // pueden ser aldeas o capitales
-	var vikingos = #{}
-	var	botin = 0
+	var property areasInvolucradas = #{} // pueden ser aldeas o capitales
+	var property vikingos = #{}
+	var	property botin
 	
-	method valeLaPena(){
-		return areasInvolucradas.all({area => area.valeLaPena(vikingos.size()) })	// vale la pena para toda aldea y para toda ciudad
-	}
+	method valeLaPena()
+		= areasInvolucradas.all({area => area.valeLaPena(vikingos.size()) })	// vale la pena para toda aldea y para toda ciudad
+
 	method subir(vikingo){
 		vikingos.add(vikingo)
 	}
@@ -18,22 +18,20 @@ class Expedicion{
 		self.dividirEquitativamente(self.botinTotal())
 	}
 	method dividirEquitativamente(botinTotal){
-		vikingos.forEach({ vikingo => vikingo.recibirPaga(botinIndivual(botinTotal)) })
+		vikingos.forEach({ vikingo => vikingo.recibirPaga(botinTotal) })
 	}
 	
 	method botinTotal(){
 		return areasInvolucradas.sum({ area => area.botin() })
 	}
-	method botinIndividual(botinTotal){
-		return botinTotal / vikingos
-	}
+
 
 }
 
 
 class Capital{
-	var riqueza = 1
-	var defensores = 300
+	var property riqueza = 1
+	var property defensores = 300
 	
 	method botin(vikingos){	// en monedas de oro
 		return self.defensoresDerrotados(vikingos) * riqueza				// ya que cada vikingo se cobrará la vida de un defensor.
@@ -58,10 +56,10 @@ class Aldea{
 	}
 }
 class AldeaAmurallada inherits Aldea{
-	var cantMinimaVikingosEnComitiva = 0 
+	var minimaVikingos = 0 
 	
-	override method valeLaPena(vikingos){
-		return vikingos >= cantMinimaVikingosEnComitiva
+	override method valeLaPena(cantInvasores){
+		return cantInvasores >= minimaVikingos
 	}
 
 }
